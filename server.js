@@ -3,6 +3,7 @@ const express = require('express'); // importing a CommonJS module
 const helmet = require('helmet');
 const cors = require('cors');
 const session = require('express-session');
+const KnexSessionStore = require('connect-session-knex')(session);
 const apiRoute = require('./routes/api/index.js');
 const server = express();
 
@@ -15,7 +16,14 @@ const sessionConfig = {
         httpOnly: true,
     },
     resave: false,
-    saveUninitialized: false, //Check law - get permission
+    saveUninitialized: false, //Check law - get permission, 
+    store: new KnexSessionStore({
+        knex: require('./database/dbConfig.js'),
+        tablename: 'sessions',
+        sidfieldname: 'sid',
+        createtable: true,
+        clearInterval: 1000 * 60 * 60,
+    }),
 };
 
 server.use(helmet());
