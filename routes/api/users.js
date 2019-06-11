@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const protected = require('../../auth/protected-middleware.js');
 const Users = require('../../users/user-model.js');
 
 
@@ -10,16 +11,5 @@ router.get('/', protected, (req, res) => {
         })
         .catch(err => res.send(err));
 });
-
-function protected(req, res, next) {
-    const { username, password } = req.headers;
-
-    if (username && password) {
-        next();
-    } else {
-        res.status(400).json({ message: 'invalid credentials' });
-    }
-}
-
 
 module.exports = router;

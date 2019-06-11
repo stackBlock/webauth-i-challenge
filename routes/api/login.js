@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const Users = require('../../users/user-model.js');
 
-
 router.post('/', (req, res) => {
     let { username, password } = req.body;
 
@@ -20,11 +19,5 @@ router.post('/', (req, res) => {
             res.status(500).json(error);
         });
 });
-
-
-
-
-
-
 
 module.exports = router;
