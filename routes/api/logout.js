@@ -5,9 +5,9 @@ router.get('/', (req, res) => {
     if (req.session && req.session.user) {
         req.session.destroy(err => {
             if (err) {
-                res.json({ message: 'not looged out - error' })
+                res.json({ message: 'not looging out - error' })
             } else {
-                res.status(200).json({ message: 'bye, bye!' });
+                res.status(200).json({ message: 'good Riddance! ' });
             }
         })
     } else {
